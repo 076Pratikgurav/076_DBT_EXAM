@@ -1,0 +1,99 @@
+
+
+Q.1] create table DEPT (DEPTNO int,DNAME varchar(15),LOC varchar(10));
+
+insert into DEPT value (10, 'ACCOUNTING',' NEW YORK'),
+(20,' RESEARCH', 'DALLAS'),
+(30 ,'SALES ','CHICAGO'),
+(40,'OPERATIONS', 'BOSTON');
+
+
+Q.2] create table EMP (EMPNO int,ENAME varchar(10),JOB varchar(9), HIREDATE date,SAL float(7,2), COMM float(7,2),DEPTNO int);
+
+
+insert into EMP values(  7839 ,'KING', 'MANAGER' ,'1991-11-17' ,5000, NULL, 10),
+(7698, 'BLAKE','CLERK','1981-05-01' ,2850, NULL, 30),
+(7782, 'CLARK', 'MANAGER','1981-06-09', 2450, NULL, 10),
+(7566, 'JONES', 'CLERK','1981-04-02', 2975, NULL, 20),
+(7654, 'MARTIN', 'SALESMAN', '1981-09-28', 1250, 1400, 30),
+(7499, 'ALLEN','SALESMAN', '1981-02-20', 1600, 300, 30);
+
+
+Q.3] select * from emp where SAL between 2500 and 5000;
+
+
+Q.4] select ENAME from EMP order by ENAME DESC ;
+
+
+
+Q.5] select LOWER (JOB) as JOB_L from EMP;
+
+
+
+Q.6] select ENAME ,LENGTH(ENAME) "Length" from emp order by ENAME;
+
+
+Q.7]  select DEPTNO,COUNT(*) from EMP Group by DEPTNO;
+
+
+Q.8]   select ENAME ,DNAME from EMP ,dept where EMP.deptno =  dept.deptno ;
+
+
+Q.9]  select ENAME ,position('AR' IN ENAME) AS FIRST_Occ_AR from EMP;
+
+
+Q.10]  select ENAME,SAL,SAL*0.20 as HRA from EMP;
+
+
+
+
+=========================================================================================
+                    Section 2
+
+Q.1]
+
+delimiter //
+create procedure POC1(String1 varchar(20), String2 varchar(20))
+begin
+if String1 = substr(String2,2)
+then
+insert into tempp values('STRING1 EXIST IN STRING2');
+else
+ insert into tempp values('STRING1 NOT EXIST IN STRING2');
+ end if;
+ end; 
+ delimiter;
+ //
+ 
+ create table tempp (tring1 varchar(20), String2 varchar(20),result varchar(20));
+
+call POC1('DAC','CDAC');
+select * from tempp;
+
+
+Q.2]  
+
+delimiter //
+ create function FUNC1(values1 int,values2 int,values3 int )
+ returns boolean 
+ deterministic
+ begin
+ if values1+ values2>=values3 AND values2+ values3>=values1 AND values3+ values1>=values2 
+ then 
+  return true;
+  else 
+  return false;
+ end if;
+ end; //
+ delimiter ;
+ 
+ delimiter //
+ create procedure TRG(side1 int,side2 int,side3 int)
+ begin
+ declare result boolean;
+if FUNC1(values1,values2,values3) then
+ insert into TRIANGLE ( Result);
+ end; //
+ delimiter ;
+ 
+ create table TRIANGLE (result varchar(20));
